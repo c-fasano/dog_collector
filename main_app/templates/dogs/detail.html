@@ -19,6 +19,10 @@
       <h2>A {{dog.breed}} good boy.</h2>
     {% endif %}
     <p>{{ dog.description }}</p>
+    <div class="dog-actions">
+    <a href={% url 'dogs_update' dog.id %} class="btn warn">Edit</a>
+    <a href="{% url 'dogs_delete' dog.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 
