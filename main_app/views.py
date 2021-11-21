@@ -21,3 +21,4 @@ def dogs_detail(request, dog_id):
 class DogCreate(CreateView):
   model = Dog
   fields = '__all__'
+  success_url= '/dogs/'
