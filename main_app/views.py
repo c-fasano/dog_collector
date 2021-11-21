@@ -1,7 +1,5 @@
 from django.shortcuts import render
 
-
-from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
@@ -26,3 +24,6 @@ dogs = [
 
 def dogs_index(request):
   return render(request, 'dogs/index.html', { 'dogs': dogs })
+
+def home(request):
+  return render(request, 'home.html')
