@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/dog-index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>Dog List</h1>
+</section>
+
+<section class="card container">
+  {% for cat in cats %}
+    <h2 class="card-title">{{ dog.name }}</h2>
+    {% if dog.age > 0 %}
+      <p>A {{ dog.age }} year old {{ dog.breed }}</p>
+    {% endif %}
+    <p><small>{{ dog.description }}</small></p>
+</section>
+
+{% endblock %}
