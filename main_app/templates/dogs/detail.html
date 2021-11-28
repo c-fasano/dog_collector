@@ -2,6 +2,15 @@
 {% load static %}
 
 {% block head %}
+<link 
+  href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
+  rel="stylesheet" 
+/>
+<link rel="stylesheet" href="{% static 'css/mcdp.css' %}">
+<script 
+  src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
+>
+</script>
 <link rel="stylesheet" type="type/css" href="{% static 'css/dog-detail.css' %}">
 {% endblock %}
 
@@ -59,7 +68,7 @@
 </form>
 <h3>Past Walks</h3>
 <table>
-  
+
 </table>
 
 {% endblock %}
