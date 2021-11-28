@@ -1,6 +1,8 @@
 from django.db import models
 
 from django.urls import reverse
+
+from datetime import date
 # Create your models here.
 
 TIMES = (
@@ -37,3 +39,6 @@ class Walk(models.Model):
 
   def __str__(self):
     return f"{self.get_walk_display()} on {self.date}"
+
+  def walked_today(self):
+    return self.walk_set.filter(date=date.today()).count() >= 1

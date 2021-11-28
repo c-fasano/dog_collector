@@ -48,6 +48,11 @@
       method="post"
       class="subsection-content"
     >
+      {% if dog.walked_today %}
+        <p class="fed">{{ dog.name }} has been walked today and thanks you!</p>
+      {% else %}
+        <p class="unfed">{{ dog.name }} has not been walked today.</p>
+      {% endif %}
       {% csrf_token %}
       {{ walk_form.as_p }}
       <button type="submit" class="btn submit">Add Walk</button>
@@ -69,7 +74,7 @@
       </table>
     {% else %}
       <div class="subsection-content">
-        <p>{{ dog.name }} has not been walked</p>
+        <p>{{ dog.name }} has never been walked and is asking you to kindly give them some exercise.</p>
       </div>
     {% endif %}
   </section>
