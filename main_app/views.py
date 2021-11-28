@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Dog
+from .models import Dog, Toy
 from .forms import WalkForm
 # Create your views here.
 
@@ -39,3 +39,7 @@ class DogUpdate(UpdateView):
 class DogDelete(DeleteView):
   model = Dog
   success_url = '/dogs/'
+
+class ToyCreate(CreateView):
+  model = Toy
+  fields = '__all__'
