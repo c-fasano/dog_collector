@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Dog, Toy
 from .forms import WalkForm
+from django.views.generic import ListView, DetailView
 # Create your views here.
 
 def about(request):
@@ -43,3 +44,9 @@ class DogDelete(DeleteView):
 class ToyCreate(CreateView):
   model = Toy
   fields = '__all__'
+
+class ToyList(ListView):
+  model = Toy
+
+class ToyDetail(DetailView):
+  model = Toy
