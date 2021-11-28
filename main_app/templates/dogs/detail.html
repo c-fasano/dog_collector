@@ -8,8 +8,8 @@
 {% block content %}
 
 <section class"dog-container">
-  <div class="dog-img"
-    <img src="{% static 'images/Dog5.png' %}" alt="Sitting dog" style="width:100%">
+  <div class="dog-img">
+    <img src="{% static 'images/Dog5.png' %}" alt="Sitting dog">
   </div>
   <div class="dog-details">
     <h1>{{ dog.name }}</h1>
@@ -20,8 +20,8 @@
     {% endif %}
     <p>{{ dog.description }}</p>
     <div class="dog-actions">
-    <a href={% url 'dogs_update' dog.id %} class="btn warn">Edit</a>
-    <a href="{% url 'dogs_delete' dog.id %}" class="btn danger">Delete</a>
+      <a href={% url 'dogs_update' dog.id %} class="btn warn">Edit</a>
+      <a href="{% url 'dogs_delete' dog.id %}" class="btn danger">Delete</a>
     </div>
   </div>
 </section>

@@ -8,7 +8,11 @@
 {% block content %}
 
 <div class="page-header">
-  <h1>Add a new Dog!</h1>
+  {% if object %}
+    <h1>Edit {{ object.name }}</h1>
+  {% else %}  
+    <h1>Add a new Dog!</h1>
+  {% endif %}
   <img src="{% static 'images/Dog6.jpeg' %}" alt="Beagle named diesel">
 </div>
 
@@ -17,7 +21,7 @@
   <table>
     {{ form.as_table }}
   </table>
-  <button type ="submit" class="btn submit"></button>
+  <button type ="submit" class="btn submit">Submit</button>
 </form>
 
 {% endblock %}
