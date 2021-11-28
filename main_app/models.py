@@ -23,7 +23,7 @@ class Dog(models.Model):
       return reverse("dogs_detail", kwargs={"dog_id": self.id})
   
 class Walk(models.Model):
-  date = models.DateField()
+  date = models.DateField('Walk Date')
   time = models.CharField(
     max_length=1,
     choices=TIMES,
