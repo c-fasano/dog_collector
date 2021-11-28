@@ -42,35 +42,37 @@
       <h2>Walks</h2>
       <img src="{% static 'images/Dog2.jpeg' %}" alt="Happy Dog" style="height: 42px; width: 42px;">
     </div>
-    <table>
-      <thead>
-        <tr><th>Date</th><th>Walk</th></tr>
-      </thead>
-      <tbody>
-        {% for walk in dog.walk_set.all %}
-          <tr>
-            <td>{{ walk.date }}</td>
-            <td>{{ walk.get_time_display }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <h3>Add Walk</h3>
+    <form 
+      action="{% url 'add_walk' dog.id %}"
+      method="post"
+      class="subsection-content"
+    >
+      {% csrf_token %}
+      {{ walk_form.as_p }}
+      <button type="submit" class="btn submit">Add Walk</button>
+    </form>
+    <h3>Past Walks</h3>
+    {% if dog.walk_set.all.count %}
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Walk</th></tr>
+        </thead>
+        <tbody>
+          {% for walk in dog.walk_set.all %}
+            <tr>
+              <td>{{ walk.date }}</td>
+              <td>{{ walk.get_time_display }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="subsection-content">
+        <p>{{ dog.name }} has not been walked</p>
+      </div>
+    {% endif %}
   </section>
-</div>
 
-<h3>New Walk</h3>
-<form 
-  action="{% url 'add_walk' dog.id %}"
-  method="post"
-  class="subsection-content"
->
-  {% csrf_token %}
-  {{ walk_form.as_p }}
-  <button type="submit" class="btn submit">Add Walk</button>
-</form>
-<h3>Past Walks</h3>
-<table>
-
-</table>
 
 {% endblock %}

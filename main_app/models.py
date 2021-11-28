@@ -32,5 +32,8 @@ class Walk(models.Model):
 
   dog = models.ForeignKey(Dog, on_delete=models.CASCADE)
 
+  class Meta:
+    ordering = ['-date']
+
   def __str__(self):
     return f"{self.get_walk_display()} on {self.date}"
