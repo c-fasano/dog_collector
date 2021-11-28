@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Feeding, Walk 
+from .models import Walk
 
 class WalkForm(ModelForm):
   class Meta:

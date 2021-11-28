@@ -48,4 +48,18 @@
   </section>
 </div>
 
+<h3>New Walk</h3>
+<form 
+  method="post"
+  class="subsection-content"
+>
+  {% csrf_token %}
+  {{ walk_form.as_p }}
+  <button type="submit" class="btn submit">Add Walk</button>
+</form>
+<h3>Past Walks</h3>
+<table>
+  
+</table>
+
 {% endblock %}
