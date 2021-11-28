@@ -9,7 +9,7 @@
 
 <section class"dog-container">
   <div class="dog-img">
-    <img src="{% static 'images/Dog5.png' %}" alt="Sitting dog">
+    <img src="{% static 'images/Dog5.png' %}" alt="Sitting dog" style="height: 300px; width: 300px;">
   </div>
   <div class="dog-details">
     <h1>{{ dog.name }}</h1>
@@ -25,5 +25,27 @@
     </div>
   </div>
 </section>
+
+<div class="walks-toy-container">
+  <section class="walks">
+    <div class="subsection-title">
+      <h2>Walks</h2>
+      <img src="{% static 'images/Dog2.jpeg' %}" alt="Happy Dog" style="height: 42px; width: 42px;">
+    </div>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Walk</th></tr>
+      </thead>
+      <tbody>
+        {% for walk in dog.walk_set.all %}
+          <tr>
+            <td>{{ walk.date }}</td>
+            <td>{{ walk.get_time_display }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
 
 {% endblock %}
