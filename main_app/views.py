@@ -17,8 +17,11 @@ def home(request):
 
 def dogs_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)
+  toys_dog_doesnt_have = Toy.objects.exclude(id__in = dog.toys.all().values_list('id'))
   walk_form = WalkForm()
-  return render(request, 'dogs/detail.html', { 'dog': dog, 'walk_form': walk_form })
+  return render(request, 'dogs/detail.html', {
+    'dog': dog, 'walk_form': walk_form, 'toys': toys_dog_doesnt_have 
+  })
 
 def add_walk(request, dog_id):
   form = WalkForm(request.POST)
