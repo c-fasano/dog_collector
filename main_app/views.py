@@ -4,6 +4,8 @@ from .models import Dog, Toy
 from .forms import WalkForm
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def about(request):
@@ -35,7 +37,9 @@ def add_walk(request, dog_id):
 class DogCreate(CreateView):
   model = Dog
   fields = ['name', 'breed', 'description', 'age']
-  success_url= '/dogs/'
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
 
 class DogUpdate(UpdateView):
   model = Dog
@@ -69,3 +73,17 @@ def assoc_toy(request, dog_id, toy_id):
 
 class Home(LoginView):
   template_name = 'home.html'
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('dogs_index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'signup.html', context)
