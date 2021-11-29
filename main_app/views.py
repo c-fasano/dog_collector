@@ -6,18 +6,22 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
+
+class Home(LoginView):
+  template_name = 'home.html'
 
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def dogs_index(request):
-  dogs = Dog.objects.all()
+  dogs = Dog.objects.filter(user=request.user)
   return render(request, 'dogs/index.html', { 'dogs': dogs })
 
-def home(request):
-  return render(request, 'home.html')
-
+@login_required
 def dogs_detail(request, dog_id):
   dog = Dog.objects.get(id=dog_id)
   toys_dog_doesnt_have = Toy.objects.exclude( id__in = dog.toys.all().values_list('id'))
@@ -25,6 +29,21 @@ def dogs_detail(request, dog_id):
   return render(request, 'dogs/detail.html', {
     'dog': dog, 'walk_form': walk_form, 'toys': toys_dog_doesnt_have
   })
+
+class DogCreate(LoginRequiredMixin, CreateView):
+  model = Dog
+  fields = ['name', 'breed', 'description', 'age']
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+class DogUpdate(LoginRequiredMixin, UpdateView):
+  model = Dog
+  fields = ['description', 'age']
+
+class DogDelete(LoginRequiredMixin, DeleteView):
+  model = Dog
+  success_url = '/dogs/'
 
 def add_walk(request, dog_id):
   form = WalkForm(request.POST)
@@ -34,32 +53,17 @@ def add_walk(request, dog_id):
     new_walk.save()
   return redirect('dogs_detail', dog_id=dog_id)
 
-class DogCreate(CreateView):
-  model = Dog
-  fields = ['name', 'breed', 'description', 'age']
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
-
-class DogUpdate(UpdateView):
-  model = Dog
-  fields = ['description', 'age']
-
-class DogDelete(DeleteView):
-  model = Dog
-  success_url = '/dogs/'
-
-class ToyCreate(CreateView):
+class ToyCreate(LoginRequiredMixin, CreateView):
   model = Toy
   fields = '__all__'
 
-class ToyList(ListView):
+class ToyList(LoginRequiredMixin, ListView):
   model = Toy
 
-class ToyDetail(DetailView):
+class ToyDetail(LoginRequiredMixin, DetailView):
   model = Toy
 
-class ToyUpdate(UpdateView):
+class ToyUpdate(LoginRequiredMixin, UpdateView):
   model = Toy
   fields = ['name', 'color']
 
@@ -67,12 +71,10 @@ class ToyDelete(DeleteView):
   model = Toy
   success_url = '/toys/'
 
+@login_required
 def assoc_toy(request, dog_id, toy_id):
   Dog.objects.get(id=dog_id).toys.add(toy_id)
   return redirect('dogs_detail', dog_id=dog_id)
-
-class Home(LoginView):
-  template_name = 'home.html'
 
 def signup(request):
   error_message = ''
