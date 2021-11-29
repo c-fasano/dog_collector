@@ -11,56 +11,47 @@
   src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
 >
 </script>
-<link 
-  rel="stylesheet" 
-  type="text/css" 
-  href="{% static 'css/dog-detail.css' %}"
-/>
+<link rel="stylesheet" type="type/css" href="{% static 'css/dog-detail.css' %}">
 <script defer src="{% static 'js/dog-detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 
-<section class="dog-container">
+<section class"dog-container">
   <div class="dog-img">
-      <img 
-        src="{% static 'images/Dog5.png' %}" 
-        alt="Sitting dog"
-      >
+    <img src="{% static 'images/Dog5.png' %}" alt="Sitting dog" style="height: 300px; width: 300px;">
   </div>
   <div class="dog-details">
     <h1>{{ dog.name }}</h1>
     {% if dog.age > 0 %}
       <h2>A {{ dog.age }} year old {{ dog.breed }}</h2>
     {% else %}
-      <h2>A {{ dog.breed }} kitten.</h2>
+      <h2>A {{dog.breed}} good boy.</h2>
     {% endif %}
     <p>{{ dog.description }}</p>
     <div class="dog-actions">
-      <a href="{% url 'dogs_update' dog.id %}" class="btn warn">Edit</a>
+      <a href={% url 'dogs_update' dog.id %} class="btn warn">Edit</a>
       <a href="{% url 'dogs_delete' dog.id %}" class="btn danger">Delete</a>
     </div>
   </div>
 </section>
+
 <div class="walks-toy-container">
   <section class="walks">
     <div class="subsection-title">
       <h2>Walks</h2>
-      <img 
-        src="{% static 'images/Dog2.jpeg' %}" 
-        alt="Happy Dog"
-      />
+      <img src="{% static 'images/Dog2.jpeg' %}" alt="Happy Dog" style="height: 42px; width: 42px;">
     </div>
-    <h3>Add a Walk</h3>
-    <form
+    <h3>Add Walk</h3>
+    <form 
       action="{% url 'add_walk' dog.id %}"
       method="post"
       class="subsection-content"
     >
       {% if dog.walked_today %}
-        <p class="walked">{{dog.name}} has been walked today and thanks you!</p>
+        <p class="fed">{{ dog.name }} has been walked today and thanks you!</p>
       {% else %}
-        <p class="not-walked">{{dog.name}} has not been walked today.</p>
+        <p class="unfed">{{ dog.name }} has not been walked today.</p>
       {% endif %}
       {% csrf_token %}
       {{ walk_form.as_p }}
@@ -83,14 +74,16 @@
       </table>
     {% else %}
       <div class="subsection-content">
-        <p>{{dog.name}} has never been walked and is asking you to kindly give them some exercise.</p>
+        <p>{{ dog.name }} has never been walked and is asking you to kindly give them some exercise.</p>
       </div>
     {% endif %}
   </section>
   <section class="toys">
     <div class="subsection-title">
       <h2>Toys</h2>
-      {% comment %} <img src="{% static 'images/string.svg' %}" alt="A ball of string" /> {% endcomment %}
+      <img src="{% static 'images/Dog1.jpeg' %}" alt="Dog with tounge out" style="height: 40px;">
+      <img src="{% static 'images/Dog2.jpeg' %}" alt="Happy Dog" style="height: 40px;">
+      <img src="{% static 'images/Dog3.png' %}" alt="Dog tilting head smiling" style="height: 40px;">
     </div>
     <h3>{{ dog.name }}'s Toys</h3>
     <div class="subsection-content">
@@ -107,7 +100,7 @@
           </div>
         {% endfor %}
       {% else %}
-        <p class="no-toys">{{dog.name}} doesn't have any toys 😞</p>
+        <p class="no-toys">{{ dog.name }} doesn't have any toys 😞</p>
       {% endif %}
     </div>
     <h3>Available Toys</h3>
@@ -122,7 +115,13 @@
             <a href="{% url 'toys_detail' toy.id %}">
               <p>A {{ toy.color }} {{ toy.name }}</p>
             </a>
-            <form action="{% url 'assoc_toy' dog.id toy.id %}" method="post">
+            <div class="card-action">
+              <form action="{% url 'assoc_toy' cat.id toy.id %}" method="post">
+                  {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+              </form>
+            </div>
+            <form action="" method="post">
               {% csrf_token %}
               <button type="submit" class="btn submit">Give toy</button>
             </form>
@@ -130,11 +129,12 @@
         {% endfor %}
       {% else %}
         <p class="all-toys">
-          {{dog.name}} already has all the available toys 🥳
+          {{cat.name}} already has all the available toys 🥳
         </p>
       {% endif %}
     </div>
   </section>
 </div>
+
 
 {% endblock %}

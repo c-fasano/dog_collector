@@ -49,20 +49,20 @@
   margin-right: 10px;
 }
 
-.unfed,
-.fed,
+.not-walked,
+.walked,
 .no-toys,
 .all-toys {
   margin: 0;
   font-weight: bold;
 }
 
-.unfed,
+.not-walked,
 .no-toys {
   color: var(--danger);
 }
 
-.fed,
+.walked,
 .all-toys {
   color: var(--submit);
 }
@@ -103,6 +103,7 @@
 }
 
 .subsection-title img {
+  height: 42px;
   margin-left: 8px;
 }
 

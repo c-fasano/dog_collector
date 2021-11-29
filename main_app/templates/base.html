@@ -9,7 +9,7 @@
   <link
     rel="shortcut icon"
     type="image/png"
-    href=""
+    href="{% static 'images/Dog1.jpeg' %}"
   >
   <title>Dog Collector</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
@@ -20,11 +20,18 @@
   <header>
     <nav>
       <ul>
-        <li><a href="{% url 'dogs_index' %}">All Dogs</a></li>
-        <li><a href="{% url 'toys_index' %}">All Toys</a></li>
-        <li><a href="{% url 'dogs_create' %}">Add a Dog</a></li>
-        <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'dogs_index' %}">All Dogs</a></li>
+          <li><a href="{% url 'toys_index' %}">All Toys</a></li>
+          <li><a href="{% url 'dogs_create' %}">Add a Dog</a></li>
+          <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          {% comment %} <li><a href="{% url 'logout' %}"></a>Log Out</li> {% endcomment %}
+        {% else %}
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'home' %}"></a>Login</li>
+          {% comment %} <li><a href="{% url 'signup' %}">Sign Up</a></li> {% endcomment %}
+        {% endif %}
       </ul>
     </nav>
   </header>

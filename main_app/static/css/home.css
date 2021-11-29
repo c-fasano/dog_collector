@@ -15,6 +15,14 @@ main > section {
   flex-direction: column;
 }
 
+.header-logo-container {
+  display: none;
+}
+
+.logo-container {
+  max-width: 375px;
+}
+
 .dog-container {
   width: 80%;
 }

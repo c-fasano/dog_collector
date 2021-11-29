@@ -66,6 +66,10 @@ main {
   width: 100%;
 }
 
+h2 {
+  font-size: var(--font-xl);
+}
+
 nav a {
   text-decoration: none;
   color: var(--text-color);
@@ -88,6 +92,11 @@ nav li {
   padding: 5px 8px;
 }
 
+.header-logo-container {
+  margin: auto;
+  padding: 10px 20px 0;
+  max-width: 500px;
+}
 
 .page-header {
   display: flex;
