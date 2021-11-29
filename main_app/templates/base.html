@@ -26,7 +26,7 @@
           <li><a href="{% url 'dogs_create' %}">Add a Dog</a></li>
           <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
           <li><a href="{% url 'about' %}">About</a></li>
-          {% comment %} <li><a href="{% url 'logout' %}"></a>Log Out</li> {% endcomment %}
+          <li><a href="{% url 'logout' %}"></a>Log Out</li>
         {% else %}
           <li><a href="{% url 'about' %}">About</a></li>
           <li><a href="{% url 'home' %}"></a>Login</li>

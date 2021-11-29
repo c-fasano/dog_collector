@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Dog, Toy
 from .forms import WalkForm
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.views import LoginView
 # Create your views here.
 
 def about(request):
@@ -65,3 +66,6 @@ class ToyDelete(DeleteView):
 def assoc_toy(request, dog_id, toy_id):
   Dog.objects.get(id=dog_id).toys.add(toy_id)
   return redirect('dogs_detail', dog_id=dog_id)
+
+class Home(LoginView):
+  template_name = 'home.html'
